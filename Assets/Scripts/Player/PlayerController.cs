@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
             characterVisual.transform.rotation = Quaternion.RotateTowards(characterVisual.transform.rotation, desiredRotation, rotationSpeed);
         }
     }
-
     private bool IsMoving()
     {
         return movementDirection != Vector3.zero;
     }
+    
 }
