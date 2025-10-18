@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7096805900738174278}
   - component: {fileID: 7758311180617893586}
   - component: {fileID: 3280010387776496138}
-  m_Layer: 0
-  m_Name: Ground
+  m_Layer: 6
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,8 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa1a3d61c6245f4c99919593c72229c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ground
-  delayTimer: 0
-  canFall: 0
+  direction: 0
+  movementSpeed: 0
+  changeDirectionTime: 0
+  isMoveable: 0
 --- !u!65 &7758311180617893586
 BoxCollider:
   m_ObjectHideFlags: 0

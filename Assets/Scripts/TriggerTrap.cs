@@ -11,9 +11,4 @@ public class TriggerTrap : MonoBehaviour
 
         trapEvent.Invoke(new Empty());
     }
-
-    public void DestroyTrigger()
-    {
-        gameObject.SetActive(false);
-    }
 }

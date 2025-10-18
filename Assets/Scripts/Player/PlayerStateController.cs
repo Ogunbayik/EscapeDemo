@@ -8,7 +8,9 @@ public class PlayerStateController : MonoBehaviour
     public enum States
     {
         Idle,
-        Move
+        Move,
+        Jump,
+        Fall,
     }
 
     public States currentState;
@@ -25,6 +27,8 @@ public class PlayerStateController : MonoBehaviour
 
         currentState = newState;
         OnStateChanged?.Invoke(newState);
+
+        Debug.Log(currentState);
     }
 
 

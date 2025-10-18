@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3951361292573498341, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.92
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3951361292573498341, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -304,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5150332477707133383, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -678,8 +678,6 @@ MonoBehaviour:
   movementSpeed: 3
   rotationSpeed: 10
   characterVisual: {fileID: 1164433982}
-  jumpForce: 7
-  gravityMultiplier: 0
 --- !u!114 &591031741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,9 +705,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
   layerMask:
     serializedVersion: 2
-    m_Bits: 64
-  radiusRange: 0.01
-  isGround: 0
+    m_Bits: 16
+  radiusRange: 0.1
 --- !u!1 &952662563
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,19 +854,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5150332477707133383, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5150332477707133383, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: canFall
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
-      propertyPath: direction
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: isMoveable
@@ -885,15 +874,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: movementSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
-      propertyPath: movementDirection
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
-      propertyPath: changeDirectionTime
-      value: 1
+      propertyPath: movementDirection
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1252,10 +1237,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform_4
       objectReference: {fileID: 0}
-    - target: {fileID: 5150332477707133383, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1332,7 +1313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5150332477707133383, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Enabled
@@ -1340,7 +1321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7096805900738174278, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: isMoveable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7758311180617893586, guid: b8129b9346e5fd64ca144e6affaebab6, type: 3}
       propertyPath: m_Material
