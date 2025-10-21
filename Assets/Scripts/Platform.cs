@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -6,45 +5,30 @@ public class Platform : MonoBehaviour
     public enum Direction
     {
         None,
-        Left,
+        Forward,
         Right,
-        Up,
-        Down
+        Up
     }
-
-    private MeshRenderer meshRenderer;
-    private Rigidbody rb;
-
-    [Header("Settings")]
+    [Header("Movement Settings")]
+    [SerializeField] private bool isMoveable;
     [SerializeField] private Direction direction;
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float changeDirectionTime;
-    [SerializeField] private bool isMoveable;
-
+    
     private Vector3 movementDirection;
-    private void Start()
+    void Start()
     {
-        InvokeRepeating(nameof(ChangeDirection), changeDirectionTime, changeDirectionTime);
-
-        InitializeRigidbody();
-
-        if (isMoveable)
-            InitialDirection();
+        InitialDirection();
     }
-    private void InitializeRigidbody()
-    {
-        rb = GetComponent<Rigidbody>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        
-        rb.useGravity = false;
-        rb.isKinematic = true;
-    }
-    public void InitialDirection()
+
+    private void InitialDirection()
     {
         switch (direction)
         {
-            case Direction.Left:
-                movementDirection = Vector3.left;
+            case Direction.None:
+                //Platform is not moving
+                break;
+            case Direction.Forward:
+                movementDirection = Vector3.forward;
                 break;
             case Direction.Right:
                 movementDirection = Vector3.right;
@@ -52,38 +36,36 @@ public class Platform : MonoBehaviour
             case Direction.Up:
                 movementDirection = Vector3.up;
                 break;
-            case Direction.Down:
-                movementDirection = Vector3.down;
+            default:
                 break;
         }
     }
-    private void FixedUpdate()
+
+    void Update()
     {
-        if (IsMoveable())
-        {
+        if (isMoveable)
             HandleMovement();
-        }
-        
     }
     private void HandleMovement()
     {
-        rb.MovePosition(transform.position + movementDirection * movementSpeed * Time.fixedDeltaTime);
+        transform.Translate(movementDirection * movementSpeed * Time.deltaTime);
     }
-    private void ChangeDirection()
+    //-----------------------------------------------PLATFORM BEHAVÝOURS--------------------------------------------------
+    public void StartMovement()
     {
-        var inverseDirection = transform.InverseTransformDirection(movementDirection);
-        movementDirection = inverseDirection;
+        isMoveable = true;
     }
-    public void ChangeColorSoftRed()
+    public void ChangeDirection()
     {
-        meshRenderer.material.color = Color.softRed;
+        var reverseDirection = -movementDirection;
+        movementDirection = reverseDirection;
     }
-    public bool IsMoveable()
+    public void ActivateSpikeTrap()
     {
-        return isMoveable;
+        Debug.Log("Active Spike Trap");
     }
-    public void Fall()
-    {
-        rb.useGravity = true;
-    }
+
+
+
+    
 }

@@ -27,8 +27,6 @@ public class PlayerStateController : MonoBehaviour
 
         currentState = newState;
         OnStateChanged?.Invoke(newState);
-
-        Debug.Log(currentState);
     }
 
 

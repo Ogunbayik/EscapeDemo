@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject characterVisual;
 
     [SerializeField] private float jumpForce;
-    [SerializeField] private float gravityMultiplier;
+    [SerializeField] private float fallGravity;
+    [SerializeField] private float normalGravity;
 
     private float horizontalInput;
     private float verticalInput;
-    private float gravityMagnitude;
-
+    private Vector3 gravity;
+    
     private Vector3 movementDirection;
 
     private bool canSecondJump = false;
@@ -30,13 +31,18 @@ public class PlayerController : MonoBehaviour
         stateController = GetComponent<PlayerStateController>();
 
         rb = GetComponent<Rigidbody>();
-        gravityMagnitude = Physics.gravity.y;
+        gravity = Physics.gravity;
     }
     private void Update()
     {
         SetStates();
         HandleJump();
         SetMovementDirection();
+
+        if (collision.IsGround())
+            SetGravityForce(normalGravity);
+
+        Debug.Log(Physics.gravity);
     }
     private void HandleJump()
     {
@@ -65,9 +71,28 @@ public class PlayerController : MonoBehaviour
             if (rb.linearVelocity.y > 0)
                 stateController.SwitchState(PlayerStateController.States.Jump);
             else if (rb.linearVelocity.y < 0)
+            {
                 stateController.SwitchState(PlayerStateController.States.Fall);
-
+                SetGravityForce(fallGravity);
+            }
+            
         }
+    }
+    private void SetMovementDirection()
+    {
+        horizontalInput = Input.GetAxis(Const.PlayerInput.HORIZONTAL_INPUT);
+        verticalInput = Input.GetAxis(Const.PlayerInput.VERTICAL_INPUT);
+
+        movementDirection.Set(horizontalInput, 0f, verticalInput);
+        movementDirection.Normalize();
+    }
+    private void SetGravityForce(float value)
+    {
+        if (gravity.y == value)
+            return;
+
+        gravity.Set(0f, value, 0f);
+        Physics.gravity = gravity;
     }
     void FixedUpdate()
     {
@@ -78,14 +103,6 @@ public class PlayerController : MonoBehaviour
             HandleMovement();
             HandleRotation();
         }
-    }
-    private void SetMovementDirection()
-    {
-        horizontalInput = Input.GetAxis(Const.PlayerInput.HORIZONTAL_INPUT);
-        verticalInput = Input.GetAxis(Const.PlayerInput.VERTICAL_INPUT);
-
-        movementDirection.Set(horizontalInput, 0f, verticalInput);
-        movementDirection.Normalize();
     }
     private void HandleMovement()
     {
