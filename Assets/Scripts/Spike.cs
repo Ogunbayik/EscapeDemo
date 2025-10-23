@@ -1,7 +1,6 @@
 using UnityEngine;
 
-
-public class Platform : MoveableObject
+public class Spike : MoveableObject
 {
     public override void Start()
     {
@@ -11,5 +10,4 @@ public class Platform : MoveableObject
     {
         base.Update();
     }
-    
 }

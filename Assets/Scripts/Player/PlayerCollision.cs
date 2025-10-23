@@ -26,4 +26,9 @@ public class PlayerCollision : MonoBehaviour
     {
         return isGround;
     }
+
+    public void SetSpawnPosition(Vector3 spawnPosition)
+    {
+        transform.position = spawnPosition;
+    }
 }

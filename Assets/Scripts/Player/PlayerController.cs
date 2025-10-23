@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.IsGround())
             SetGravityForce(normalGravity);
-
-        Debug.Log(Physics.gravity);
     }
     private void HandleJump()
     {
