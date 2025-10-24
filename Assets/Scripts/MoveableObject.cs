@@ -20,16 +20,20 @@ public class MoveableObject : MonoBehaviour
     }
 
     [Header("Movement Settings")]
-    [SerializeField] protected MovementDirection direction;
     [SerializeField] protected MovementType movementType;
+    [SerializeField] protected MovementDirection direction;
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected float moveRange;
     [SerializeField] protected float waitTime;
     [SerializeField] protected bool isWaitable;
+    [Header("Event Trigger")]
+    [SerializeField] private Transform eventTrigger;
 
+    private MovementType initialType;
+    private bool initialTriggerActivate;
+    private Vector3 initialPosition;
     private Vector3 movementDirection;
     private Vector3 movePosition;
-    private Vector3 startPosition;
     private Vector3 endPosition;
 
     private float waitTimer = 0;
@@ -37,10 +41,10 @@ public class MoveableObject : MonoBehaviour
     public virtual void Start()
     {
         InitialSetDirection();
+        InitialStateSaver();
     }
     private void InitialSetDirection()
     {
-        startPosition = transform.position;
         switch (direction)
         {
             case MovementDirection.Forward:
@@ -60,13 +64,17 @@ public class MoveableObject : MonoBehaviour
                 endPosition.Set(transform.position.x, transform.position.y - moveRange, transform.position.z);
                 break;
         }
-
+    }
+    private void InitialStateSaver()
+    {
+        initialPosition = transform.position;
+        initialType = movementType;
+        initialTriggerActivate = eventTrigger.gameObject.activeInHierarchy;
         movePosition = endPosition;
     }
     public virtual void Update()
     {
         HandleMovement();
-
     }
     protected virtual void HandleMovement()
     {
@@ -114,22 +122,29 @@ public class MoveableObject : MonoBehaviour
     private void SetOnewayMovementPosition()
     {
         if (movePosition == endPosition)
-            movePosition = startPosition;
+            movePosition = initialPosition;
         else
             movePosition = endPosition;
     }
 
+    public void Restart()
+    {
+        transform.position = initialPosition;
+        movementType = initialType;
+        eventTrigger.gameObject.SetActive(initialTriggerActivate);
+    }
     //---------------------------------------------------------MOVEABLE BEHAVÝOURS----------------------------------------------------------
-    protected virtual void StartStraightMovement()
+    public void StartStraightMovement()
     {
         movementType = MovementType.Straight;
     }
-    protected virtual void StartPingPongMovement()
+    public void StartPingPongMovement()
     {
         movementType = MovementType.PingPong;
     }
-    protected virtual void StartOnewayMovement()
+    public void StartOnewayMovement()
     {
+        //Use that for activate traps
         movementType = MovementType.OneWay;
     }
 

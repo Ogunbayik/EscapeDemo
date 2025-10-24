@@ -3,14 +3,21 @@ using UnityEngine.Rendering;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public LayerMask layerMask;
+    private Rigidbody rb;
+
+    [Header("Check Settings")]
+    public LayerMask groundLayer;
     public float radiusRange;
 
     private bool isGround;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
     private void Update()
     {
-        var platform = Physics.OverlapSphere(transform.position, radiusRange,layerMask);
+        var platform = Physics.OverlapSphere(transform.position, radiusRange,groundLayer);
 
         if (platform.Length > 0)
             isGround = true;
@@ -31,4 +38,14 @@ public class PlayerCollision : MonoBehaviour
     {
         transform.position = spawnPosition;
     }
+    public void StoppedPlayer()
+    {
+        //Need to refresh gravity for player
+        rb.linearVelocity = Vector3.zero;
+    }
+    public void Dead()
+    {
+        //Activate Dead animation
+    }
+
 }

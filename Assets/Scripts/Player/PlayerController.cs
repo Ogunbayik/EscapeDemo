@@ -13,7 +13,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [Header("Visual Settings")]
     [SerializeField] private GameObject characterVisual;
-
+    [Header("Unlock Settings")]
+    //[SerializeField] private bool isSprintUnlocked;
+    [SerializeField] private bool isJumpUnlocked;
+    [SerializeField] private bool isDoubleJumpUnlocked;
+    [Header("Jump Settings")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float fallGravity;
     [SerializeField] private float normalGravity;
@@ -25,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementDirection;
 
     private bool canSecondJump = false;
+
+    
     private void Awake()
     {
         collision = GetComponent<PlayerCollision>();
@@ -36,7 +42,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SetStates();
-        HandleJump();
+
+        if (isJumpUnlocked)
+            HandleJump();
+
         SetMovementDirection();
 
         if (collision.IsGround())
@@ -49,7 +58,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canSecondJump = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && canSecondJump)
+        else if (Input.GetKeyDown(KeyCode.Space) && canSecondJump && isDoubleJumpUnlocked)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canSecondJump = false;
@@ -118,5 +127,18 @@ public class PlayerController : MonoBehaviour
     {
         return movementDirection != Vector3.zero;
     }
-    
+   /* public void UnlockSprint()
+    {
+        isSprintUnlocked = true;
+    }
+   */
+    public void UnlockJump()
+    {
+        isJumpUnlocked = true;
+    }
+    public void UnlockDoubleJump()
+    {
+         isDoubleJumpUnlocked = true;
+    }
+   
 }
